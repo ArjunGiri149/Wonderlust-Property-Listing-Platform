@@ -26,20 +26,42 @@
 
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
-          <textarea name="listing[description]" class="form-control" required>
-<%=listing.description%></textarea
+          <textarea name="listing[description]" class="form-control" required><%=listing.description%></textarea
           >
           <div class="invalid-feedback">Please enter a valide Description</div>
         </div>
 
         <div class="mb-3">
           <p class="form-label">Original Image</p>
-          <img src="<%= originalImageUrl %>" style="border-radius: 1rem" />
+          <img
+            src="<%= originalImageUrl %>"
+            style="border-radius: 1rem; height: 150px !important"
+          />
         </div>
 
         <div class="mb-3">
           <label for="image" class="form-label">Upload New Image</label>
           <input type="file" name="listing[image]" class="form-control" />
+        </div>
+
+        <label class="form-label">Category</label>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <% const categories =
+          ['Mountain','Beach','Villas','Camping','Forest','Desert','Hotel','Waterfall'];
+          %> <% categories.forEach(cat => { %>
+          <div class="flex items-center category-icon">
+            <input type="checkbox" id="category-<%= cat.toLowerCase() %>"
+            name="listing[category][]" value="<%= cat %>" <%= (listing &&
+            Array.isArray(listing.category) && listing.category.includes(cat)) ?
+            'checked' : '' %> class="h-4 w-4 text-indigo-600 border-gray-300
+            rounded">
+            <label
+              for="category-<%= cat.toLowerCase() %>"
+              class="ml-2 text-gray-700"
+              ><%= cat %></label
+            >
+          </div>
+          <% }) %>
         </div>
 
         <div class="row">

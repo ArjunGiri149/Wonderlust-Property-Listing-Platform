@@ -1,5 +1,67 @@
 <% layout("/layouts/boilerplate") %>
 
+<div class="filters">
+  <a href="/listings" class="<%= !category ? 'active-cat' : '' %>">
+    <i class="fa-solid fa-globe"></i> All
+  </a>
+
+  <a
+    href="/listings?category=Mountain"
+    class="<%= category==='Mountain'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-mountain"></i> Mountain
+  </a>
+
+  <a
+    href="/listings?category=Beach"
+    class="<%= category==='Beach'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-umbrella-beach"></i> Beach
+  </a>
+
+  <a
+    href="/listings?category=Villas"
+    class="<%= category==='Villas'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-building"></i> Villas
+  </a>
+
+  <a
+    href="/listings?category=Camping"
+    class="<%= category==='Camping'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-campground"></i> Camping
+  </a>
+
+  <a
+    href="/listings?category=Forest"
+    class="<%= category==='Forest'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-tree"></i> Forest
+  </a>
+
+  <a
+    href="/listings?category=Desert"
+    class="<%= category==='Desert'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-sun"></i> Desert
+  </a>
+
+  <a
+    href="/listings?category=Hotel"
+    class="<%= category==='Hotel'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-hotel"></i> Hotel
+  </a>
+
+  <a
+    href="/listings?category=Waterfall"
+    class="<%= category==='Waterfall'?'active-cat':'' %>"
+  >
+    <i class="fa-solid fa-water"></i> Waterfall
+  </a>
+</div>
+
 <div class="row row-cols-xl-3 row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
   <% for (listing of allListings) { %>
   <a href="/listings/<%=listing._id%>" class="listing-link">
@@ -13,6 +75,10 @@
         <p class="card-text">
           <b> <%= listing.title %> </b><br />
           &#8377;<%= listing.price %>
+          <i class="tax-info"
+            > + &#8377;<%= listing.price/100*18 %> (18% GST) = &#8377;<%=
+            listing.price + (listing.price/100*18)%></i
+          >
         </p>
       </div>
     </div>
@@ -20,6 +86,3 @@
   <% } %>
 </div>
 
-<!-- if(form-check-input) {
-
-} -->

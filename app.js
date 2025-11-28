@@ -40,6 +40,11 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+app.use((req, res, next) => {
+  res.locals.currUser = req.user;
+  next();
+});
+
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
@@ -81,21 +86,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/demo", async(req, res) => {
-//     let fakeUser = new User({
-//         email: "demo@gmail.com",
-//         username: "demo123",
-//     })
-//     let demoUser = await User.register(fakeUser, "helloworld")
-//     res.send(demoUser)
-//     console.log(demoUser);
-// })
-
 app.use("/listings", listingRoute);
 app.use("/listings/:id/reviews", reviewRoute);
 app.use("/", userRoute);
 
-// Error Handling
 app.all("/*any", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });

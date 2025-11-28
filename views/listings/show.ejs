@@ -1,5 +1,10 @@
 <% layout("/layouts/boilerplate") %>
 
+<script>
+  const mapToken = "<%=process.env.MAP_TOKEN%>";
+  const coordinate = <%-JSON.stringify(listing.geometry.coordinates)%>;
+</script>
+
 <div class="row show-row">
   <div class="col-12 col-lg-6 mt-4">
     <h1><%= listing.title %></h1>
@@ -24,7 +29,7 @@
       <hr />
     </div>
   </div>
-
+<br>
   <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
 
   <div class="btns row-btn">
@@ -84,11 +89,12 @@
       <div class="invalid-feedback">Please add some comment for review</div>
       <br />
 
-      <button class="btn btn-primary">Submit</button><br><hr>
+      <button class="btn btn-primary">Submit</button><br />
+      <hr />
     </form>
     <% } %> <% if(listing.review.length > 0) { %>
-      <h4 class="m-3">All Reviews</h4>
-      <hr />
+    <h4 class="m-3">All Reviews</h4>
+    <hr />
     <div class="row show-row m-3">
       <% for(review of listing.review) { %>
       <div class="card col-lg-5 m-3">
@@ -109,6 +115,14 @@
     </div>
     <% } %>
   </div>
+
+  <div class="">
+    <div class="container col-12 col-lg-6 mb-5">
+      <h4>Where you'll be!</h4>
+      <br />
+      <div id="map"></div>
+    </div>
   </div>
 </div>
 
+<script src="/js/map.js"></script>

@@ -1,47 +1,52 @@
 <nav class="navbar navbar-expand-md navbar-light border-bottom sticky-top">
-  <a href="/listings">
-    <img
-      class="nav-logo"
-      src="https://res-console.cloudinary.com/dpm5rgqcf/thumbnails/v1/image/upload/v1757682131/U2NyZWVuc2hvdF8yMDI1LTA5LTEyXzE4MzExOF9lM3AzbzY=/drilldown"
-    />
-  </a>
-
-  <button
-    class="navbar-toggler me-3"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <div class="navbar-nav">
-      <a
-        class="nav-link nav-explore border border-dark rounded ms-2"
-        href="/listings"
-        ><i class="fa-solid fa-earth-asia"></i><b>Explore</b></a
-      >
+  <div class="container-fluid">
+    <a href="/listings" class="navbar-brand">
+      <i class="fa-regular fa-compass" style="color: #fe424d"></i>
+    </a>
+    <div class="navbar-nav me-auto ms-auto">
+      <a class="nav-link" href="/listings"><b>Explore</b></a>
     </div>
 
-    <div class="navbar-nav ms-auto me-3">
-      <a class="nav-link border border-dark rounded" href="/listings/new"
-        ><i class="fa-solid fa-plus"></i><b>Add New</b></a
-      >
-      <% if(!currUser) { %>
-      <a class="nav-link border border-dark rounded" href="/signup"
-        ><i class="fa-solid fa-user-plus"></i><b>&nbsp;SignUp</b></a
-      >
-      <a class="nav-link border border-dark rounded" href="/login"
-        ><i class="fa-solid fa-user"></i> <b>Login</b></a
-      >
-      <% } %> <% if(currUser) { %>
-      <a class="nav-link border border-dark rounded" href="/logout"
-        ><i class="fa-solid fa-right-from-bracket"></i> <b>Logout</b></a
-      >
-      <% } %>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <br />
+      <div class="navbar-nav m-auto">
+        <form action="/listings/search" method="GET" class="d-flex me-auto">
+          <input
+            type="search"
+            class="form-control me-2 search-inp"
+            placeholder="Search location..."
+            name="q"
+            required
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings/new"><b>Add New</b></a>
+
+        <% if (!currUser) { %>
+        <a class="nav-link" href="/signup"><b>SignUp</b></a>
+        <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %> <% if (currUser) { %>
+        <a class="nav-link" href="/logout"><b>Logout</b></a>
+        <% } %>
+      </div>
     </div>
   </div>
 </nav>
+
