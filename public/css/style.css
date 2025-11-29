@@ -65,7 +65,7 @@ body {
   align-items: center;
 }
 
-.f-info-socials button {
+.f-info-socials a {
   font-size: 2rem;
   margin-right: 0.5rem;
   margin-top: 0.8rem;

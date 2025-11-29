@@ -13,9 +13,9 @@ const listingSchema = new Schema({
     filename: String,
   },
   category: {
-  type: [String],
-  required: true
-},
+    type: [String],
+    required: true,
+  },
   price: Number,
   location: String,
   country: String,

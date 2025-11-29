@@ -5,13 +5,12 @@ const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingControllers = require("../controllers/listing.js");
 const multer = require("multer");
-const { storage } = require("../cloudConfig.js");
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+
 //Search Route
-router
-  .route("/search")
-  .get(wrapAsync(listingControllers.search));
+router.route("/search").get(wrapAsync(listingControllers.search));
 
 //Index & Create Route
 router

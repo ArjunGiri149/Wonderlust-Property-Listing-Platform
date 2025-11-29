@@ -3,33 +3,23 @@
     <a href="/listings" class="navbar-brand">
       <i class="fa-regular fa-compass" style="color: #fe424d"></i>
     </a>
+
     <div class="navbar-nav me-auto ms-auto">
       <a class="nav-link" href="/listings"><b>Explore</b></a>
     </div>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <br />
+
       <div class="navbar-nav m-auto">
         <form action="/listings/search" method="GET" class="d-flex me-auto">
-          <input
-            type="search"
-            class="form-control me-2 search-inp"
-            placeholder="Search location..."
-            name="q"
-            required
-          />
+          <input type="search" class="form-control me-2 search-inp"
+            placeholder="Search location..." name="q" required />
           <button class="btn search-btn" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>Search
           </button>
@@ -40,13 +30,20 @@
         <a class="nav-link" href="/listings/new"><b>Add New</b></a>
 
         <% if (!currUser) { %>
-        <a class="nav-link" href="/signup"><b>SignUp</b></a>
-        <a class="nav-link" href="/login"><b>Login</b></a>
-        <% } %> <% if (currUser) { %>
-        <a class="nav-link" href="/logout"><b>Logout</b></a>
+          <a class="nav-link" href="/signup"><b>SignUp</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
         <% } %>
+
+        <% if (currUser) { %>
+          <form action="/logout" method="POST" class="d-inline">
+            <button class="nav-link btn btn-link" type="submit">
+              <b>Logout</b>
+            </button>
+          </form>
+        <% } %>
+
       </div>
+
     </div>
   </div>
 </nav>
-

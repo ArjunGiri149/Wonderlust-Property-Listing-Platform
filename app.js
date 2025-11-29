@@ -22,60 +22,52 @@ const userRoute = require("./routes/user.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
-main()
-  .then(() => {
-    console.log("Connected to DB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 async function main() {
-  await mongoose.connect(dbUrl);
+  try {
+    await mongoose.connect(dbUrl);
+    console.log("MongoDB Connected");
+  } catch (err) {
+    console.log("DB ERROR:", err);
+  }
 }
+main();
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
-
-app.use((req, res, next) => {
-  res.locals.currUser = req.user;
-  next();
-});
 
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  crypto: {
-    secret: process.env.SECRET,
-  },
-  touchAfter: 24 * 3600,
+  ttl: 7 * 24 * 60 * 60,
 });
 
-store.on("error", () => {
-  console.log("ERROR in MONGO SESSION STORE", err);
+store.on("error", (err) => {
+  console.log("SESSION STORE ERROR", err);
 });
 
-const sessionOption = {
+const sessionOptions = {
   store,
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
     httpOnly: true,
   },
 };
 
-app.use(session(sessionOption));
+app.use(session(sessionOptions));
+
 app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
 
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -90,12 +82,13 @@ app.use("/listings", listingRoute);
 app.use("/listings/:id/reviews", reviewRoute);
 app.use("/", userRoute);
 
-app.all("/*any", (req, res, next) => {
+app.all(/.*/, (req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });
 
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Somethig went wrong!" } = err;
+  if (res.headersSent) return next(err);
+  const { statusCode = 500, message = "Something went wrong!" } = err;
   res.status(statusCode).render("error.ejs", { message });
 });
 
