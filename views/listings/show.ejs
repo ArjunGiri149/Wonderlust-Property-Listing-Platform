@@ -32,7 +32,7 @@
 <br>
   <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
 
-  <div class="btns row-btn">
+  <div class="btns row-btn mt-2">
     <form method="GET" action="/listings/<%=listing._id%>/edit">
       <button class="btn btn-primary">Edit</button>
     </form>

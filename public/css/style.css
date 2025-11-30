@@ -101,12 +101,12 @@ body {
 .listing-card {
   border: none !important;
   font-size: 1.3rem !important;
-  margin: 2rem 1rem;
+  margin: 0.5rem;
 }
 
 .card-img-top {
   border-radius: 1rem !important;
-  height: 25rem;
+  height: 16rem;
   object-fit: cover;
 }
 
@@ -170,23 +170,17 @@ body {
   }
 }
 
-.tax-info {
-  display: none;
-}
-
-.tax-toggle {
-  border: 1px solid black;
-  border-radius: 12px;
-  height: 4rem;
-  padding: 1rem;
-  background-color: #f9f9f9;
-}
-
 /* ========== Show ========== */
 .show-img {
-  height: 60vh;
+  height: 14rem;
   object-fit: cover;
-  min-width: 200px;
+  max-width:700px;
+}
+
+@media (min-width: 900px) {
+  .show-img {
+    height: 25rem;
+  }
 }
 
 .btns {

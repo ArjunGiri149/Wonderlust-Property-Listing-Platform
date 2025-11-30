@@ -62,6 +62,8 @@
   </a>
 </div>
 
+<br>
+
 <div class="row row-cols-xl-3 row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
   <% for (listing of allListings) { %>
   <a href="/listings/<%=listing._id%>" class="listing-link">
@@ -74,11 +76,7 @@
       <div class="card-body">
         <p class="card-text">
           <b> <%= listing.title %> </b><br />
-          &#8377;<%= listing.price %>
-          <i class="tax-info"
-            > + &#8377;<%= listing.price/100*18 %> (18% GST) = &#8377;<%=
-            listing.price + (listing.price/100*18)%></i
-          >
+          &#8377;<%= listing.price %>/night
         </p>
       </div>
     </div>
